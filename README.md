@@ -14,7 +14,7 @@ Presented at **ICIDSSD 2026**, 6th International Conference on ICT for Digital, 
 - Transcribes it automatically using OpenAI Whisper
 - Stores transcript chunks in a ChromaDB vector database
 - Answers your questions with exact timestamps pointing back to the source
-- No internet required — fully local, no data sent anywhere
+- No internet required fully local, no data sent anywhere
 
 ---
 
