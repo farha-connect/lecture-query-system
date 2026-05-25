@@ -45,7 +45,7 @@ else:
 
 st.markdown(theme_css, unsafe_allow_html=True)
 
-# Common CSS
+
 st.markdown("""
 <style>
 .stChatMessage { border-radius: 10px; padding: 10px; }
@@ -77,7 +77,7 @@ def save_history(history):
 
 st.session_state["history"] = load_history()
 
-# Header
+
 col1, col2 = st.columns([8, 1])
 with col1:
     st.title("Lecture Query System")
@@ -108,7 +108,7 @@ if not st.session_state["authenticated"]:
                     st.error("Invalid username or password.")
     st.stop()
 
-# Sidebar
+
 with st.sidebar:
     st.header("Upload Lecture")
     uploaded_file = st.file_uploader("Upload a video or audio file", type=["mp4", "mp3", "m4a", "wav"])
@@ -182,7 +182,7 @@ if st.session_state["active_video"]:
                 st.markdown(f'<span class="timestamp-badge">{src["timestamp"]}</span>', unsafe_allow_html=True)
                 st.markdown(f"> {src['text']}")
                 
-        # Save to history
+        
         history.append({"question": question, "answer": full_answer})
         save_history(history)
         st.session_state["history"] = history
