@@ -4,7 +4,7 @@ I built this because I kept scrubbing through 2-hour lecture recordings trying t
 
 Runs entirely on your machine. Nothing leaves your device.
 
-Presented at **ICIDSSD 2026** — 6th International Conference on ICT for Digital, Smart, and Sustainable Development.
+Presented at **ICIDSSD 2026**, 6th International Conference on ICT for Digital, Smart, and Sustainable Development.
 
 ---
 
