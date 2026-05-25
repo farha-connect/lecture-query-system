@@ -1,25 +1,24 @@
 # Lecture Query System
 
-A fully local, privacy-first AI assistant that lets you ask 
-natural language questions about any recorded lecture or session 
-and receive timestamped, sourced answers.
+I built this because I kept scrubbing through 2-hour lecture recordings trying to find one concept I half-remembered. This tool lets you upload any lecture, ask it questions in plain English, and get answers with the exact timestamp to jump to.
 
-Presented at ICIDSSD 2026, 6th International Conference on ICT 
-for Digital, Smart, and Sustainable Development.
+Runs entirely on your machine. Nothing leaves your device.
+
+Presented at **ICIDSSD 2026** — 6th International Conference on ICT for Digital, Smart, and Sustainable Development.
 
 ---
 
-## What It Does
+## What it does
 
 - Upload any audio or video lecture (MP4, MP3, WAV, M4A)
-- Automatically transcribes it using OpenAI Whisper
+- Transcribes it automatically using OpenAI Whisper
 - Stores transcript chunks in a ChromaDB vector database
-- Answers your natural language questions with exact video timestamps
-- Runs entirely on your local machine — no internet, no data sent anywhere
+- Answers your questions with exact timestamps pointing back to the source
+- No internet required — fully local, no data sent anywhere
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Component | Technology |
 |---|---|
@@ -31,47 +30,60 @@ for Digital, Smart, and Sustainable Development.
 
 ---
 
-## How to Run
+## How to run
 
-### 1. Clone the repository
+**1. Clone the repo**
+```bash
 git clone https://github.com/yourusername/lecture-query-system
 cd lecture-query-system
+```
 
-### 2. Install dependencies
+**2. Install dependencies**
+```bash
 pip install -r requirements.txt
+```
 
-### 3. Install and start Ollama
-Download from https://ollama.com
-Then run: ollama serve
+**3. Install and start Ollama**
 
-### 4. Create the custom model
+Download from https://ollama.com, then:
+```bash
+ollama serve
+```
+
+**4. Create the custom model**
+```bash
 ollama create mylecture -f Modelfile
+```
 
-### 5. Run the app
+**5. Run the app**
+```bash
 streamlit run app.py
+```
 
-### 6. Login
+**6. Login**
+
 Username: admin
 Password: admin123
 
 ---
 
-## System Architecture
+## How it works
 
-The pipeline works as follows:
-1. User uploads a recording via the Streamlit interface
-2. Whisper transcribes the audio into timestamped segments
+1. You upload a recording via the Streamlit interface
+2. Whisper transcribes it into timestamped segments
 3. Segments are chunked and embedded using SentenceTransformers
 4. Embeddings are stored in ChromaDB
-5. User queries are embedded and matched against ChromaDB
-6. Top 3 matching chunks are passed to Llama 3.2 via Ollama
-7. LLM generates a detailed answer with source timestamp
+5. When you ask a question, it gets embedded and matched against the stored chunks
+6. Top 3 matching chunks go to Llama 3.2 via Ollama
+7. The LLM returns an answer with the source timestamp
 
 ---
 
 ## Requirements
 
 - Python 3.10+
-- 8GB RAM minimum (16GB recommended)
-- 10GB free storage (for model weights)
+- 8GB RAM minimum (16GB recommended for smoother performance)
+- ~10GB free storage for model weights
 - Ollama installed locally
+
+Tested on an 8-minute lecture recording. Works best with clear audio. Still being improved — feel free to open an issue if something breaks.
