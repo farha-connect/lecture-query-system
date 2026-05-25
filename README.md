@@ -83,7 +83,7 @@ Password: admin123
 
 - Python 3.10+
 - 8GB RAM minimum (16GB recommended for smoother performance)
-- ~10GB free storage for model weights
+- 10GB free storage for model weights
 - Ollama installed locally
 
 Tested on an 8-minute lecture recording. Works best with clear audio. Still being improved — feel free to open an issue if something breaks.
