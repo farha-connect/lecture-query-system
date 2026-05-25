@@ -1,0 +1,5 @@
+streamlit
+openai-whisper
+chromadb
+sentence-transformers
+requests
