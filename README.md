@@ -95,18 +95,6 @@ This makes the system viable in institutional settings where cloud-based tools a
 
 ---
 
-## Design Decisions & Tradeoffs
-
-**Why semantic chunking over sentence-level splitting?**
-Sentence-level splits frequently break mid-explanation. Overlapping semantic chunks preserve the explanatory arc of a lecture segment, so the retrieved context actually contains a complete thought rather than a fragment.
-
-**Why SentenceTransformers for embeddings?**
-all-MiniLM-L6-v2 is fast, lightweight, and runs locally without GPU requirements — important since the whole point is avoiding cloud dependency. The tradeoff is slightly lower semantic precision than larger embedding models, but adequate for lecture retrieval at this scale.
-
-**Why a custom Modelfile with Llama 3.2?**
-The custom Modelfile lets the prompt be tuned specifically for timestamp-grounded answering — instructing the model to cite sources rather than generate freely. Without this, the LLM tends to answer from general knowledge rather than the retrieved lecture content.
-
----
 
 ## Limitations & Future Work
 
