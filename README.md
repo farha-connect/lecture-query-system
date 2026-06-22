@@ -4,7 +4,7 @@ I built this because I kept scrubbing through 2-hour lecture recordings trying t
 
 Runs entirely on your machine. Nothing leaves your device.
 
-Presented at **ICIDSSD 2026**, 6th International Conference on ICT for Digital, Smart, and Sustainable Development.
+Presented at ICIDSSD 2026, 6th International Conference on ICT for Digital, Smart, and Sustainable Development.
 
 ---
 
@@ -18,10 +18,10 @@ Presented at **ICIDSSD 2026**, 6th International Conference on ICT for Digital, 
 
 ---
 
-## Tech stack
+## Tech Stack
 
 | Component | Technology |
-|---|---|
+|-----------|------------|
 | Transcription | OpenAI Whisper |
 | Semantic Embeddings | SentenceTransformers (all-MiniLM-L6-v2) |
 | Vector Database | ChromaDB |
@@ -30,11 +30,11 @@ Presented at **ICIDSSD 2026**, 6th International Conference on ICT for Digital, 
 
 ---
 
-## How to run
+## How to Run
 
 **1. Clone the repo**
 ```bash
-git clone https://github.com/yourusername/lecture-query-system
+git clone https://github.com/farha-connect/lecture-query-system
 cd lecture-query-system
 ```
 
@@ -62,12 +62,11 @@ streamlit run app.py
 
 **6. Login**
 
-Username: admin
-Password: admin123
+Username: `admin` Password: `admin123`
 
 ---
 
-## How it works
+## How it Works
 
 1. You upload a recording via the Streamlit interface
 2. Whisper transcribes it into timestamped segments
@@ -85,5 +84,36 @@ Password: admin123
 - 8GB RAM minimum (16GB recommended for smoother performance)
 - 10GB free storage for model weights
 - Ollama installed locally
+
+---
+
+## Privacy-First Design Rationale
+
+A core design constraint was keeping everything local. Lecture recordings often contain sensitive academic content, and uploading them to cloud APIs creates a privacy risk for students and institutions. Every component, transcription, embedding, retrieval, and inference  runs on the user's machine. No data leaves the device, no API keys needed, works fully offline.
+
+This makes the system viable in institutional settings where cloud-based tools are restricted or unavailable, and for students who are simply uncomfortable with their course material being processed by third-party servers.
+
+---
+
+## Design Decisions & Tradeoffs
+
+**Why semantic chunking over sentence-level splitting?**
+Sentence-level splits frequently break mid-explanation. Overlapping semantic chunks preserve the explanatory arc of a lecture segment, so the retrieved context actually contains a complete thought rather than a fragment.
+
+**Why SentenceTransformers for embeddings?**
+all-MiniLM-L6-v2 is fast, lightweight, and runs locally without GPU requirements — important since the whole point is avoiding cloud dependency. The tradeoff is slightly lower semantic precision than larger embedding models, but adequate for lecture retrieval at this scale.
+
+**Why a custom Modelfile with Llama 3.2?**
+The custom Modelfile lets the prompt be tuned specifically for timestamp-grounded answering — instructing the model to cite sources rather than generate freely. Without this, the LLM tends to answer from general knowledge rather than the retrieved lecture content.
+
+---
+
+## Limitations & Future Work
+
+- Validated on short recordings (8 minutes). Performance on full 2-hour lectures, especially with varying audio quality, hasn't been formally evaluated yet
+- No user study has conducted  a rigorous comparison of time-to-answer versus manual scrubbing across multiple participants is the most important next step
+- Whisper degrades on low-quality audio or heavy accents
+- Single-turn queries only,  multi-turn conversational retrieval would be a natural extension
+- No speaker diarisation:  can't distinguish instructor from student in Q&A sections
 
 Tested on an 8-minute lecture recording. Works best with clear audio. Still being improved — feel free to open an issue if something breaks.
